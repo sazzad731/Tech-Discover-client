@@ -6,7 +6,7 @@ const Main = () => {
     <>
       <div className="h-screen w-full bg-custom-gradient">
         {/* Your content can go here */}
-        <header className="backdrop-blur-lg shadow-md">
+        <header className="backdrop-blur-lg shadow-md bg-white/15">
           <NavBar />
         </header>
         <Outlet />
