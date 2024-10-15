@@ -15,9 +15,9 @@ const NavBar = () => {
     </>
   );
   return (
-    <div className="navbar justify-between max-w-[1500px] mx-auto z-50">
+    <div className="navbar justify-between max-w-[1500px] mx-auto relative z-50">
       <div className="navbar-start">
-        <div className="dropdown z-50">
+        <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -36,14 +36,14 @@ const NavBar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow font-bold"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow font-bold"
           >
             {navMenu}
             <li>
               <LoginBtn />
             </li>
             <li>
-              <SignUpBtn/>
+              <SignUpBtn />
             </li>
           </ul>
         </div>
@@ -71,7 +71,7 @@ const NavBar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow-md"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow-md"
             >
               <li>
                 <Link className="justify-between">User name</Link>
@@ -86,8 +86,8 @@ const NavBar = () => {
           </div>
         ) : (
           <div className="hidden md:flex items-center gap-5">
-            <LoginBtn/>
-            <SignUpBtn/>
+            <LoginBtn />
+            <SignUpBtn />
           </div>
         )}
       </div>

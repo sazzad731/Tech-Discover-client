@@ -3,7 +3,7 @@ import heroImg from "../../../assets/image/Hero.png";
 const Banner = () => {
   return (
     <section>
-      <div className="max-w-[1500px] my-10 xl:mx-auto mx-4 flex flex-col-reverse xl:flex-row items-center justify-between gap-10 backdrop-blur-lg bg-white/20 p-5 md:p-14 rounded-3xl shadow-md bg-hero-gradient -z-10">
+      <div className="max-w-[1500px] my-10 xl:mx-auto mx-4 flex flex-col-reverse xl:flex-row items-center justify-between gap-10 backdrop-blur-lg bg-white/20 p-5 md:p-14 rounded-3xl shadow-md bg-hero-gradient">
         <div>
           <h1 className="text-4xl md:text-6xl font-bold mb-7">
             <span className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
