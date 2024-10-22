@@ -1,10 +1,12 @@
 import Banner from "./Banner/Banner";
+import FeaturedProducts from "./FeaturedProducts/FeaturedProducts";
 
 
 const Home = () => {
   return (
     <>
-      <Banner/>
+      <Banner />
+      <FeaturedProducts/>
     </>
   );
 };

@@ -1,16 +1,40 @@
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import LoginBtn from "./Button/LoginBtn";
 import SignUpBtn from "./Button/SignUpBtn";
+import { useContext } from "react";
+import { PageScrollContext } from "../providers/PageScrollProvider";
 const NavBar = () => {
   const user = false;
-
+  const { scrollToSection, activeSection } = useContext(PageScrollContext);
   const navMenu = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `${isActive && "border-b-2 border-black"}`
+          }
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <Link to="/products">Products</Link>
+        <NavLink
+          to="/products"
+          className={({ isActive }) =>
+            `${isActive && "border-b-2 border-black"}`
+          }
+        >
+          Products
+        </NavLink>
+      </li>
+      <li
+        onClick={() => scrollToSection("featuredSection")}
+        className={`cursor-pointer ${
+          activeSection === "featuredSection" && "border-b-2 border-black"
+        }`}
+      >
+        Featured Product
       </li>
     </>
   );
@@ -39,12 +63,16 @@ const NavBar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow font-bold"
           >
             {navMenu}
-            <li>
-              <LoginBtn />
-            </li>
-            <li>
-              <SignUpBtn />
-            </li>
+            {!user && (
+              <>
+                <li>
+                  <LoginBtn />
+                </li>
+                <li>
+                  <SignUpBtn />
+                </li>
+              </>
+            )}
           </ul>
         </div>
         <Link to="/" className="text-2xl font-bold -mt-4">
