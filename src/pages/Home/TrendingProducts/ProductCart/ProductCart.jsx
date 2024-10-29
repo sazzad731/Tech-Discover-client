@@ -1,23 +1,22 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 import { GoComment } from "react-icons/go";
-import { TiArrowSortedUp } from "react-icons/ti";
 import { Link } from "react-router-dom";
 
-
-const TabContent = ({ tabsContentInfo }) => {
-  const { image, name, title, comments, topics, upvote } = tabsContentInfo;
-  const [ upvotes, setUpVote ] = useState(upvote);
+const ProductCart = ({ productdata, position }) => {
+  const { image, name, title, comments, topics } = productdata;
 
   return (
-    <div className="w-full flex items-center justify-between mb-5 md:p-5 md:backdrop-blur-md md:shadow-lg md:rounded-lg md:bg-white/25">
+    <div className="w-full flex items-center justify-between mb-5">
       <div className="flex items-center w-full cursor-pointer">
+        <h3 className="text-2xl font-bold me-3">{position + 1}</h3>
         <Link to="/product-details">
           <img className="mr-3 rounded-md md:w-12" src={image} alt={name} />
         </Link>
         <div className="me-2 md:me-0 ms-2 md:ms-0">
           <Link to="/product-details">
-            <h3 className="text-sm md:text-base font-semibold">{name}</h3>
+            <h3 className="text-sm md:text-base font-semibold">
+              {name}
+            </h3>
             <p>{title}</p>
           </Link>
           <div className="flex">
@@ -50,19 +49,13 @@ const TabContent = ({ tabsContentInfo }) => {
           </div>
         </div>
       </div>
-      <button
-        onClick={() => setUpVote(upvotes + 1)}
-        className="flex flex-col items-center justify-center px-3 pb-1 rounded-lg bg-base-300"
-      >
-        <TiArrowSortedUp className="w-6 h-6 md:w-10 md:h-10" />
-        {upvotes}
-      </button>
     </div>
   );
 };
 
-TabContent.propTypes = {
-  tabsContentInfo: PropTypes.object
+ProductCart.propTypes = {
+  productdata: PropTypes.object,
+  position: PropTypes.number,
 };
 
-export default TabContent;
+export default ProductCart;

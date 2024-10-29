@@ -11,7 +11,7 @@ export default {
         radial-gradient(circle at 80% 0%, rgba(131, 56, 236, 0.3), transparent 40%)
         `,
         "hero-gradient": `
-        radial-gradient(circle at 70% 50%, rgba(255, 0, 110, 0.4), transparent 40%)`,
+        radial-gradient(circle at 30% 70%, rgba(255, 0, 110, 0.2), transparent 40%)`,
       },
     },
   },

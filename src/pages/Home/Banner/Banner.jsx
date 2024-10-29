@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import heroImg from "../../../assets/image/Hero.png";
+import PrimaryButton from "../../../components/shared/Button/PrimaryButton";
 const Banner = () => {
   return (
     <section className="pt-28">
@@ -11,18 +11,13 @@ const Banner = () => {
             </span>
             <br /> the Future of Tech
           </h1>
-          <p className="md:text-lg font-medium max-w-96">
+          <p className="md:text-lg font-medium max-w-96 mb-7">
             Explore the latest web apps, AI tools, and software, Connect with
             innovators shaping tomorrow, Share your insights and elevate
             emerging products, Join the community &apos; driving innovation
             forward.
           </p>
-          <Link
-            to="/signup"
-            className="btn bg-black text-white hover:bg-black rounded-full px-5 mt-7"
-          >
-            Try it for free
-          </Link>
+          <PrimaryButton label="Try it for free" path="/signup" />
         </div>
         <img src={heroImg} alt="image" />
       </div>

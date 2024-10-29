@@ -1,8 +1,9 @@
 import { NavLink, Link } from "react-router-dom";
-import LoginBtn from "./Button/LoginBtn";
-import SignUpBtn from "./Button/SignUpBtn";
+import LoginBtn from "./shared/Button/LoginBtn";
+import PrimaryButton from "./shared/Button/PrimaryButton";
 import { useContext } from "react";
 import { PageScrollContext } from "../providers/PageScrollProvider";
+import Logo from "./shared/Brand/Logo";
 const NavBar = () => {
   const user = false;
   const { scrollToSection, activeSection } = useContext(PageScrollContext);
@@ -28,13 +29,30 @@ const NavBar = () => {
           Products
         </NavLink>
       </li>
-      <li
-        onClick={() => scrollToSection("featuredSection")}
-        className={`cursor-pointer ${
-          activeSection === "featuredSection" && "border-b-2 border-black"
-        }`}
-      >
-        Featured Product
+      <li>
+        <NavLink
+          onClick={() => scrollToSection("featuredSection")}
+          className={() =>
+            `${
+              activeSection === "featuredSection" && "border-b-2 border-black"
+            }`
+          }
+        >
+          Featured Product
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          onClick={() => scrollToSection("trendingSection")}
+          className={() =>
+            `${
+              activeSection === "trendingSection" && "border-b-2 border-black"
+            }`
+          }
+        >
+          Trending Product
+        </NavLink>
       </li>
     </>
   );
@@ -60,24 +78,22 @@ const NavBar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow font-bold"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow font-bold gap-3"
           >
             {navMenu}
             {!user && (
               <>
-                <li>
+                <li className="md:hidden">
                   <LoginBtn />
                 </li>
-                <li>
-                  <SignUpBtn />
+                <li className="md:hidden">
+                  <PrimaryButton label="Sign up" path="/signup" />
                 </li>
               </>
             )}
           </ul>
         </div>
-        <Link to="/" className="text-2xl font-bold -mt-4">
-          TechDiscover<span className="text-4xl text-orange-600">.</span>
-        </Link>
+        <Logo/>
         <div className="hidden lg:flex lg:ps-10">
           <ul className="menu-horizontal px-1 gap-5 font-bold">{navMenu}</ul>
         </div>
@@ -115,7 +131,7 @@ const NavBar = () => {
         ) : (
           <div className="hidden md:flex items-center gap-5">
             <LoginBtn />
-            <SignUpBtn />
+            <PrimaryButton label="Sign up" path="/signup" />
           </div>
         )}
       </div>

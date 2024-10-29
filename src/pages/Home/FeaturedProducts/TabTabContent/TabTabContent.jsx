@@ -2,35 +2,35 @@ import { Link, useSearchParams } from "react-router-dom";
 import TabContent from "./TabContent/TabContent";
 
 const TabTabContent = () => {
-  const [params, setParams] = useSearchParams();
+  const [params, ] = useSearchParams();
   const featured = params.get("featured");
   const tabsContentInfo = [
     {
       id: 1,
-      productImage:
+      image:
         "https://ph-files.imgix.net/c5bfd640-2b07-4a2d-aed9-e75b8afb3bbf.png?auto=compress&codec=mozjpeg&cs=strip&auto=format&w=48&h=48&fit=crop&dpr=1",
-      productName: "Scrintal",
-      productTitle: "Go from ideas to insights, one block at a time",
+      name: "Scrintal",
+      title: "Go from ideas to insights, one block at a time",
       comments: 50,
       topics: ["Productivity", "writing", "Notes"],
       upvote: 234,
     },
     {
       id: 2,
-      productImage:
+      image:
         "https://ph-files.imgix.net/b486d850-4523-4440-aefe-81ac50627700.png?auto=compress&codec=mozjpeg&cs=strip&auto=format&w=48&h=48&fit=crop&dpr=1",
-      productName: "Nango Auth",
-      productTitle: "Free OAuth to quickly connect your product with 250+ APIs",
+      name: "Nango Auth",
+      title: "Free OAuth to quickly connect your product with 250+ APIs",
       comments: 30,
       topics: ["API", "SaaS", "Developer Tools"],
       upvote: 34,
     },
     {
       id: 3,
-      productImage:
+      image:
         "https://ph-files.imgix.net/e9e9f3ee-fd94-43c5-ac4a-23208470e2f1.png?auto=compress&codec=mozjpeg&cs=strip&auto=format&w=48&h=48&fit=crop&dpr=1",
-      productName: "Scrintal",
-      productTitle: "Go from ideas to insights, one block at a time",
+      name: "Scrintal",
+      title: "Go from ideas to insights, one block at a time",
       comments: 50,
       topics: ["Productivity", "writing", "Notes"],
       upvote: 234,
@@ -46,8 +46,8 @@ const TabTabContent = () => {
       category: "top-rated",
     },
     {
-      label: "Trending Products",
-      category: "trending",
+      label: "Editor's Picks",
+      category: "picks",
     },
   ];
   return (
