@@ -71,7 +71,7 @@ const TrendingProducts = () => {
 
 
   return (
-    <section ref={trendingSectionRef}>
+    <section ref={trendingSectionRef} className="pt-20">
       <div className="max-w-[1500px] 2xl:mx-auto mx-4">
         <h2 className="text-2xl font-semibold text-center mb-10">
           Trending Products

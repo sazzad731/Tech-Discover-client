@@ -58,7 +58,7 @@ const NavBar = () => {
   );
   return (
     <div className="navbar justify-between max-w-[1500px] mx-auto relative z-50">
-      <div className="navbar-start">
+      <div className="navbar-start w-full">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg

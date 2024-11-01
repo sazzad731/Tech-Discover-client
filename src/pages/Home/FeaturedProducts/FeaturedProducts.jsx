@@ -6,7 +6,7 @@ import PrimaryButton from "../../../components/shared/Button/PrimaryButton";
 const FeaturedProducts = () => {
   const { featuredSectionRef } = useContext(PageScrollContext);
   return (
-    <section ref={featuredSectionRef} className="py-20">
+    <section ref={featuredSectionRef} className="pt-20">
       <div className="max-w-[1500px] 2xl:mx-auto mx-4">
         <h4 className="text-center text-2xl font-semibold mb-10">
           Featured Products
