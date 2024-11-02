@@ -1,8 +1,13 @@
-import { FcGoogle } from "react-icons/fc";
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+import GoogleAuthButton from "../../components/shared/Button/GoogleAuthButton";
 
 const Login = () => {
   return (
     <section className="pt-28 min-h-screen">
+      <Helmet>
+        <title>TechDiscover | Log in</title>
+      </Helmet>
       <div className="max-w-[668px] md:mx-auto mx-4 backdrop-blur-lg bg-white/20 p-5 md:p-14 rounded-3xl shadow-md bg-hero-gradient">
         <h2 className="text-5xl font-semibold text-center mb-10">Log in</h2>
         <form className="flex flex-col items-center gap-5 mb-5">
@@ -44,11 +49,10 @@ const Login = () => {
         </div>
 
         {/* google login methode */}
-        <div className="w-full">
-          <button className="btn w-full">
-            <FcGoogle className="w-7 h-7"/>
-          </button>
-        </div>
+        <GoogleAuthButton/>
+        <p className="text-center mt-5">
+          Don&apos;t have an account? <Link to="/signup" className="font-semibold underline">Sign up</Link>
+        </p>
       </div>
     </section>
   );
