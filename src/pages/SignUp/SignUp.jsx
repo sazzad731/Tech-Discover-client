@@ -1,9 +1,33 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import GoogleAuthButton from "../../components/shared/Button/GoogleAuthButton";
+import useAuth from "../../hooks/useAuth";
+import { uploadImage } from "../../api/utils";
 
 
 const SignUp = () => {
+  const { signUpWithPassword, updateUserProfile, setIsLoading } = useAuth();
+
+  const handleSignUp = async(event)=>{
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const image = form.image.files[ 0 ];
+
+    try{
+      setIsLoading(true)
+      const imageData = await uploadImage(image);
+      
+      if(imageData.display_url){
+        const result = await signUpWithPassword(email, password);
+        await updateUserProfile(name, imageData.display_url);
+      }
+    }catch(err){
+      console.error(err.message);
+    }
+  }
   return (
     <section className="pt-28 min-h-screen">
       <Helmet>
@@ -11,7 +35,7 @@ const SignUp = () => {
       </Helmet>
       <div className="max-w-[668px] md:mx-auto mx-4 backdrop-blur-lg bg-white/20 p-5 md:p-14 rounded-3xl shadow-md bg-hero-gradient">
         <h2 className="text-5xl font-semibold text-center mb-10">Sign up</h2>
-        <form className="flex flex-col items-center gap-5 mb-5">
+        <form onSubmit={handleSignUp} className="flex flex-col items-center gap-5 mb-5">
           <label className="form-control w-full">
             <div className="label">
               <span className="label-text">Enter your name</span>

@@ -1,14 +1,14 @@
-import { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { AuthContext } from '../../../providers/AuthProvider';
+import useAuth from '../../../hooks/useAuth';
 
 const GoogleAuthButton = () => {
-  const { googleSignIn } = useContext(AuthContext);
+  const { googleSignIn } = useAuth();
 
   const handleGoogleSignIn = async()=>{
     try{
       const result = await googleSignIn()
       const user = result.user;
+      console.log(user);
     }catch(err){
       console.error(err.message);
     }

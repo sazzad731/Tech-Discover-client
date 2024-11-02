@@ -7,7 +7,6 @@ import Logo from "./shared/Brand/Logo";
 import useAuth from "../hooks/useAuth";
 const NavBar = () => {
   const { user } = useAuth();
-  console.log(user)
   const { scrollToSection, activeSection } = useContext(PageScrollContext);
   const navMenu = (
     <>
@@ -109,7 +108,7 @@ const NavBar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
+                <img alt="User profile" src={user?.photoURL} />
               </div>
             </div>
             <ul
