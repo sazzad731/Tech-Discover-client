@@ -4,8 +4,10 @@ import PrimaryButton from "./shared/Button/PrimaryButton";
 import { useContext } from "react";
 import { PageScrollContext } from "../providers/PageScrollProvider";
 import Logo from "./shared/Brand/Logo";
+import useAuth from "../hooks/useAuth";
 const NavBar = () => {
-  const user = false;
+  const { user } = useAuth();
+  console.log(user)
   const { scrollToSection, activeSection } = useContext(PageScrollContext);
   const navMenu = (
     <>
@@ -93,7 +95,7 @@ const NavBar = () => {
             )}
           </ul>
         </div>
-        <Logo/>
+        <Logo />
         <div className="hidden lg:flex lg:ps-10">
           <ul className="menu-horizontal px-1 gap-5 font-bold">{navMenu}</ul>
         </div>
@@ -107,10 +109,7 @@ const NavBar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+                <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
               </div>
             </div>
             <ul
@@ -118,7 +117,7 @@ const NavBar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow-md"
             >
               <li>
-                <Link className="justify-between">User name</Link>
+                <Link className="justify-between">{user?.displayName}</Link>
               </li>
               <li>
                 <a>Dashboard</a>
