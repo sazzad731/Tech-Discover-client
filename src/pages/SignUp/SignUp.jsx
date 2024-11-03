@@ -4,26 +4,27 @@ import GoogleAuthButton from "../../components/shared/Button/GoogleAuthButton";
 import useAuth from "../../hooks/useAuth";
 import { uploadImage } from "../../api/utils";
 import Swal from "sweetalert2";
-
+import { useState } from "react";
 
 const SignUp = () => {
   const { signUpWithPassword, updateUserProfile, setIsLoading } = useAuth();
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSignUp = async(event)=>{
+  const handleSignUp = async (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    const image = form.image.files[ 0 ];
+    const image = form.image.files[0];
 
-    try{
-      setIsLoading(true)
+    try {
+      setIsLoading(true);
       // upload image in imgbb
       const imageData = await uploadImage(image);
-      
-      if(imageData.display_url){
+
+      if (imageData.display_url) {
         const result = await signUpWithPassword(email, password);
         await updateUserProfile(name, imageData.display_url);
         const userInfo = {
@@ -31,7 +32,7 @@ const SignUp = () => {
           email: result.user.email,
           image: imageData.display_url,
         };
-        if(result.user){
+        if (result.user) {
           Swal.fire({
             title: "Success",
             text: "Account created successfully",
@@ -40,14 +41,17 @@ const SignUp = () => {
             timer: 1500,
           });
           // save user in database here
-          navigate('/')
+          navigate("/");
         }
         console.log(userInfo);
       }
-    }catch(err){
-      console.error(err.message);
+    } catch (err) {
+      console.error(err.code);
+      if (err.code === "auth/email-already-in-use") {
+        setError("Email already in use! Please try another email");
+      }
     }
-  }
+  };
   return (
     <section className="pt-28 min-h-screen">
       <Helmet>
@@ -82,6 +86,7 @@ const SignUp = () => {
               className="input input-bordered w-full"
               required
             />
+            <p className="text-red-500">{error}</p>
           </label>
           <label className="form-control w-full">
             <div className="label">

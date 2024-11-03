@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import GoogleAuthButton from "../../components/shared/Button/GoogleAuthButton";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const Login = () => {
   const { signInWithEmailAndPass } = useAuth();
+  const [ error, setError ] = useState("");
   const handleLogin = async(event)=>{
     event.preventDefault();
     const form = event.target;
@@ -25,7 +27,9 @@ const Login = () => {
         form.reset()
       }
     }catch(err){
-      console.error(err.message);
+      if (err.code === "auth/invalid-credential"){
+        setError("No Account found")
+      }
     }
   }
   return (
@@ -49,6 +53,7 @@ const Login = () => {
               placeholder="Type here"
               className="input input-bordered w-full"
             />
+            <p className="text-red-500">{error}</p>
           </label>
           <label className="form-control w-full">
             <div className="label">
