@@ -24,7 +24,6 @@ const Login = () => {
         });
         form.reset()
       }
-      console.log(user);
     }catch(err){
       console.error(err.message);
     }

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from "../firebase/firebase.config"
 import useAxiosPublic from "../hooks/useAxiosPublic";
 
@@ -35,6 +35,10 @@ const AuthProvider = ({children}) => {
     })
   }
 
+  const logOutUser = ()=>{
+    return signOut(auth)
+  }
+
   useEffect(() =>
   {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) =>
@@ -55,6 +59,7 @@ const AuthProvider = ({children}) => {
     signInWithEmailAndPass,
     signUpWithPassword,
     updateUserProfile,
+    logOutUser,
   };
   
   return (
