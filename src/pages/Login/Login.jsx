@@ -1,8 +1,34 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import GoogleAuthButton from "../../components/shared/Button/GoogleAuthButton";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { signInWithEmailAndPass } = useAuth();
+  const handleLogin = async(event)=>{
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    try{
+      const result = await signInWithEmailAndPass(email, password);
+      const user = result.user;
+      if(user){
+        Swal.fire({
+          title: "Success",
+          text: "You have successfully logged in!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        form.reset()
+      }
+      console.log(user);
+    }catch(err){
+      console.error(err.message);
+    }
+  }
   return (
     <section className="pt-28 min-h-screen">
       <Helmet>
@@ -10,13 +36,17 @@ const Login = () => {
       </Helmet>
       <div className="max-w-[668px] md:mx-auto mx-4 backdrop-blur-lg bg-white/20 p-5 md:p-14 rounded-3xl shadow-md bg-hero-gradient">
         <h2 className="text-5xl font-semibold text-center mb-10">Log in</h2>
-        <form className="flex flex-col items-center gap-5 mb-5">
+        <form
+          onSubmit={handleLogin}
+          className="flex flex-col items-center gap-5 mb-5"
+        >
           <label className="form-control w-full">
             <div className="label">
               <span className="label-text">Enter your email</span>
             </div>
             <input
               type="email"
+              name="email"
               placeholder="Type here"
               className="input input-bordered w-full"
             />
@@ -27,6 +57,7 @@ const Login = () => {
             </div>
             <input
               type="password"
+              name="password"
               placeholder="Type here"
               className="input input-bordered w-full"
             />
@@ -49,9 +80,12 @@ const Login = () => {
         </div>
 
         {/* google login methode */}
-        <GoogleAuthButton/>
+        <GoogleAuthButton />
         <p className="text-center mt-5">
-          Don&apos;t have an account? <Link to="/signup" className="font-semibold underline">Sign up</Link>
+          Don&apos;t have an account?{" "}
+          <Link to="/signup" className="font-semibold underline">
+            Sign up
+          </Link>
         </p>
       </div>
     </section>

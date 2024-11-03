@@ -1,12 +1,14 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GoogleAuthButton from "../../components/shared/Button/GoogleAuthButton";
 import useAuth from "../../hooks/useAuth";
 import { uploadImage } from "../../api/utils";
+import Swal from "sweetalert2";
 
 
 const SignUp = () => {
   const { signUpWithPassword, updateUserProfile, setIsLoading } = useAuth();
+  const navigate = useNavigate();
 
   const handleSignUp = async(event)=>{
     event.preventDefault();
@@ -18,11 +20,29 @@ const SignUp = () => {
 
     try{
       setIsLoading(true)
+      // upload image in imgbb
       const imageData = await uploadImage(image);
       
       if(imageData.display_url){
         const result = await signUpWithPassword(email, password);
         await updateUserProfile(name, imageData.display_url);
+        const userInfo = {
+          name: result.user.displayName,
+          email: result.user.email,
+          image: imageData.display_url,
+        };
+        if(result.user){
+          Swal.fire({
+            title: "Success",
+            text: "Account created successfully",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // save user in database here
+          navigate('/')
+        }
+        console.log(userInfo);
       }
     }catch(err){
       console.error(err.message);
@@ -35,7 +55,10 @@ const SignUp = () => {
       </Helmet>
       <div className="max-w-[668px] md:mx-auto mx-4 backdrop-blur-lg bg-white/20 p-5 md:p-14 rounded-3xl shadow-md bg-hero-gradient">
         <h2 className="text-5xl font-semibold text-center mb-10">Sign up</h2>
-        <form onSubmit={handleSignUp} className="flex flex-col items-center gap-5 mb-5">
+        <form
+          onSubmit={handleSignUp}
+          className="flex flex-col items-center gap-5 mb-5"
+        >
           <label className="form-control w-full">
             <div className="label">
               <span className="label-text">Enter your name</span>
@@ -45,6 +68,7 @@ const SignUp = () => {
               name="name"
               placeholder="Type here"
               className="input input-bordered w-full"
+              required
             />
           </label>
           <label className="form-control w-full">
@@ -56,6 +80,7 @@ const SignUp = () => {
               name="email"
               placeholder="Type here"
               className="input input-bordered w-full"
+              required
             />
           </label>
           <label className="form-control w-full">
@@ -67,6 +92,7 @@ const SignUp = () => {
               name="password"
               placeholder="Type here"
               className="input input-bordered w-full"
+              required
             />
           </label>
           {/* file input field */}
@@ -78,6 +104,7 @@ const SignUp = () => {
               type="file"
               name="image"
               className="file-input file-input-bordered w-full"
+              required
             />
           </label>
 
@@ -100,9 +127,12 @@ const SignUp = () => {
 
         {/* google login methode */}
         <GoogleAuthButton />
-        
+
         <p className="text-center mt-5">
-          Already have an account? <Link to="/login" className="font-semibold underline">Log in</Link>
+          Already have an account?{" "}
+          <Link to="/login" className="font-semibold underline">
+            Log in
+          </Link>
         </p>
       </div>
     </section>
