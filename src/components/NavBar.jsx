@@ -7,10 +7,10 @@ import Logo from "./shared/Brand/Logo";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 const NavBar = () => {
-  const { user, logOutUser } = useAuth();
+  const { user, logOutUser, deleteUserAccount } = useAuth();
   const { scrollToSection, activeSection } = useContext(PageScrollContext);
-  const handleLogOutUser = async()=>{
-    try{
+  const handleLogOutUser = async () => {
+    try {
       await logOutUser();
       Swal.fire({
         title: "Success",
@@ -19,10 +19,44 @@ const NavBar = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-    }catch(err){
+    } catch (err) {
       console.error(err.message);
     }
-  }
+  };
+
+  const handleDeleteUser = () => {
+    Swal.fire({
+      title: "Are you sure to delete account?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteUserAccount();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your account has been deleted.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } catch (error) {
+          if (error) {
+            await logOutUser();
+            Swal.fire({
+              title: "Please Login to delete account",
+              text: "First you have to login to delete account",
+              icon: "warning",
+            });
+          }
+        }
+      }
+    });
+  };
   const navMenu = (
     <>
       <li>
@@ -166,7 +200,12 @@ const NavBar = () => {
                       <Link to="/profile">Profile</Link>
                     </li>
                     <li>
-                      <button className="text-red-500">Delete Account</button>
+                      <button
+                        onClick={handleDeleteUser}
+                        className="text-red-500"
+                      >
+                        Delete Account
+                      </button>
                     </li>
                   </ul>
                 </details>
