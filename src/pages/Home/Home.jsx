@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <Banner />
       <FeaturedProducts />
-      <h1>for git hub authentication test</h1>
+      <h1>for git hub authentication one more test</h1>
       <TrendingProducts/>
     </>
   );
